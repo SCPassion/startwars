@@ -33,6 +33,7 @@ export default function RootLayout() {
           tabBarIcon: (
             { color, size } // This is how you can change the icon of a tab
           ) => <Ionicons name="film-outline" color={color} size={size} />,
+          headerShown: false,
         }}
       />
       <Tabs.Screen

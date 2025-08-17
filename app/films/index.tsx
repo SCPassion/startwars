@@ -1,7 +1,9 @@
+import FilmItem from "@/components/FilmItem";
+import ListEmptyComponent from "@/components/ListEmptyComponent";
 import { colors } from "@/constants/colors";
 import { Film } from "@/types/types";
 import { useEffect, useState } from "react";
-import { FlatList, RefreshControl, StyleSheet, Text, View } from "react-native";
+import { FlatList, RefreshControl, StyleSheet, View } from "react-native";
 
 export default function films() {
   const [films, setFilms] = useState<Film[]>([]);
@@ -13,7 +15,6 @@ export default function films() {
     try {
       const response = await fetch("https://swapi.py4e.com/api/films/");
       const data = await response.json();
-      console.log("🚀 ~ fetchFiles ~ data:", data);
 
       setFilms(data.results);
     } catch (error) {
@@ -27,10 +28,6 @@ export default function films() {
   useEffect(() => {
     fetchFiles();
   }, []);
-
-  function renderItem({ item }: { item: Film }) {
-    return <Text style={{ color: "white" }}>{item.title}</Text>;
-  }
 
   // Add pull down to refresh to the FlatList
   function onRefresh() {
@@ -46,17 +43,18 @@ export default function films() {
       <FlatList
         data={films}
         keyExtractor={(item) => item.episode_id.toString()}
-        renderItem={renderItem}
+        renderItem={(item) => <FilmItem item={item.item} />}
         refreshControl={
-          <RefreshControl
+          <RefreshControl // This is the component that allows the user to pull down to refresh the list
             refreshing={refreshing}
-            onRefresh={onRefresh}
-            tintColor={colors.text}
+            onRefresh={onRefresh} // This is the function that will be called when the user pulls down on the view
+            tintColor={colors.text} // This is the color of the refresh indicator
           />
         }
         ListEmptyComponent={
-          <Text style={{ color: colors.text }}>No films found</Text>
+          <ListEmptyComponent loading={loading} message="No films found" />
         }
+        // showsVerticalScrollIndicator={false}
       />
     </View>
   );
