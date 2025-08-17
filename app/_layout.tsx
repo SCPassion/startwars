@@ -44,10 +44,11 @@ export default function RootLayout() {
           tabBarIcon: ({ color, size }) => (
             <Ionicons name="people-outline" color={color} size={size} />
           ),
+          headerShown: false,
         }}
       />
       <Tabs.Screen
-        name="favorite"
+        name="favorites"
         options={{
           title: "My Favorites",
           tabBarLabel: "Favorites",
