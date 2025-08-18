@@ -15,6 +15,7 @@ export default function _layout() {
       }}
     >
       <Stack.Screen name="index" options={{ title: "All People" }} />
+      <Stack.Screen name="[id]" options={{ title: "Person Details" }} />
     </Stack>
   );
 }

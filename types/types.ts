@@ -15,6 +15,13 @@ export type Film = {
   url: string;
 };
 
+export type People = {
+  count: number;
+  next: string;
+  previous: any;
+  results: Person[];
+};
+
 export type Person = {
   name: string;
   height: string;
